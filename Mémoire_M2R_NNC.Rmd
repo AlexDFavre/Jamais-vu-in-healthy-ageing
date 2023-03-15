@@ -1,0 +1,1199 @@
+---
+title: |
+  ![](logoUGA.jpg){width=1.5in}
+  ![](logoLPNC.png){width=1.5in}  
+  Using jamais vu to extend the comprehension of metacognitive experiences in healthy aging
+
+shorttitle        : "Jamais vu in healthy aging"
+
+author: 
+  - name          : "Alexis Favre"
+    affiliation   : "1, 2"
+    corresponding : no    # Define only one corresponding author
+    address       : "621 Avenue Centrale, 38400, Saint-Martin-d'Hères"
+    email         : "alexis.favrefelix@gmail.com"
+
+
+affiliation:
+  - id            : "1"
+    institution   : "Grenoble-Alpes University"
+  - id            : "2"
+    institution   : "Under the supervision of Christopher Moulin"
+
+
+authornote: |
+  Due to the COVID-19 situation, the current results will not reflet our assumptions on aging effects. Instead, results will come partly from a similar experiment conducted earlier this year on young adults, and partly from the observations of the control group. 
+
+
+abstract: |
+  In two experiments, the jamais vu phenomenon was investigated using a word alienation procedure. In the first experiment, 72 participants repeated a word 3 or 30 times before realizing a semantic relatedness decision task. The results did not support the hypothesis that only semantically related words should be impacted by repetitions (indicator of a semantic satiation effect), but rather showed a general slowing down effect due to word satiation. However, by isolating trials that generated a jamais vu sensation within the satiation condition, the effect of semantic satiation  was revealed, suggesting a close relationship between the sensory and cognitive sides. The original aim of the second experiment was to compare the prevalence of such a sensation in young and older adults. Due to the health situation, only 20 young participants could be recruited. However, the results seem to support those of the first experiment by highlighting an increase of reaction times between trials that generated sensation and those that did not as a function of repetition. The discussion focuses on the relationship between jamais vu and semantic satiation, as well as on the metacognitive aspect of such a sensation by considering it as an alert indicating the presence of an underlying cognitive disturbance.
+
+
+keywords          : "jamais vu, semantic satiation, metacognitive experiences, aging"
+wordcount         : "12993"
+
+bibliography      : ["References.bib"]
+
+floatsintext      : no
+figsintext        : yes
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+linenumbers       : no
+mask              : no
+draft             : no
+colorlinks        : yes
+date              : "`r Sys.Date()`"
+
+csl               : "apa.csl"
+documentclass     : "apa7"
+classoption       : "jou"
+output            : papaja::apa6_pdf
+header-includes   : 
+  - \raggedbottom
+appendix          : 
+  - "appendix 1.Rmd"
+  - "appendix 2.Rmd"
+  - "appendix C.Rmd"
+  - "appendix D.Rmd"
+---
+
+```{r setup, include = FALSE}
+#library(devtools)
+#devtools::install_github("crsh/papaja")
+library("papaja")
+options(knitr.duplicate.label = "allow")
+options(tinytex.verbose = TRUE)
+```
+
+```{r packages, include = FALSE}
+library(tidyverse)
+library(tinytex)
+library(dplyr)
+library(readxl)
+library(ggplot2)
+library(lme4)
+library(lmerTest)
+library(stats)
+library(papaja)
+library(BayesFactor)
+library(bookdown)
+library(knitr)
+library(MOTE) # for the 'apa()' function in the text
+library(citr) # for authors citations in text
+library(effsize) # for effect sizes which are not coming from mixed models
+library(bestNormalize)
+library(gridExtra)
+library(see)
+library(performance)
+library(shiny)
+library(patchwork)
+```
+
+```{r analysis-preferences}
+# Seed for random number generation
+set.seed(42)
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+```
+
+# Acknowledgements
+
+First of all, I would like to thank Professor Christopher Moulin for allowing me to join his research team and for offering me the opportunity to carry out this project. It was through his contact that my scientific interest was truly awakened and I will be forever grateful for that.
+
+I would also like to extend a special thank to Audrey Mazencieux for being an invaluable source of advice during my Master 2 training. Her investment has been boundless, her patience unfailing, and it is largely thanks to her that I have been able to acquire my methodological and statistical skills.
+
+All this work would not have been possible without the Master in Neuropsychology and Clinical Neurosciences as well as the participation of the Laboratory of Psychology and NeuroCognition which I sincerely thank.
+
+\newpage
+
+# Introduction {#back-to-intro}
+
+"Two of the most famous illusions of memory --- déjà vu and jamais vu --- are illusions of metacognition. ... However, the concept of jamais vu has been given very little attention [so far]" [@Roediger1996, p. 95].
+
+Our cognitive processes are guided by subjective evaluations and feelings, which tell us what we do and do not know, and can give confidence in what we perceive [@James1902]. These higher order evaluations can be described as metacognition. Whilst there has been a lot of interest recently in how metacognition illuminates our understanding of consciousness, there is less study of what it means in special conditions, such as older adults, and perceptual and memory impairment.
+
+Metacognition is a concept described as "cognition about cognition" and refers to our ability to be aware of what we learn, know, and especially for our purpose, our cognitive processes. As suggested by @Koriat2000, metacognitive abilities can be understood as involving two levels of complexity which influence each other dynamically, and each of these two levels may be associated with one of the two cognitive systems proposed by dual-process theories [@Evans2008; @Thompson2009]. On the high-level, metacognition is thought of as "thinking about thinking". This is what @Flavell1979 called the metacognitive knowledge and refers to our ability to know what we are knowing or not, that is, the knowledge that we have about our own cognition [@Brown1979]. It is for instance knowing that you are good at recognizing faces but bad at recognizing names. This knowledge is the result of all beliefs and ideas one may have about himself. This kind of knowledge comes from long-term memory [episodic and semantic; see @Wheeler1997] and would be the kind of metacognition that metarepresentational theories have been trying to explain [@Arango-Munoz2011]. On the lower-level, metacognition is the ability to evaluate and control our cognitive processes. These metacognitive experiences are described as "any conscious cognitive or affective experiences that accompany and pertain to any intellectual enterprise" [@Flavell1979, p. 906]. For instance, this includes the ability to make judgments about our own processes such as the judgment of learning [@Dunlosky1992] or the feeling of knowing [@Efklides2006]. @Tulving1985 claimed that phenomenological experience is one of the ways of distinguishing different memory systems. He characterised episodic memory as "autonoetic", and the semantic memory as "noetic". According to @Efklides2002, metacognitive experiences would be metacognition available in working memory [see also @Efklides2005; @Yzerbyt1998] as this would be an online simulation of cognitive processes, allowing their predictions and adjustments in any cognitive task [@Proust2007]. This experience-based metacognition would be the capacity to a) generate one kind of peculiar feelings pointing to mental dispositions and b) to be able to use these feelings in order to control cognitive activities [@Proust2009].
+
+Some metacognitive experiences are so intense that they cross the consciousness barrier expressing themselves as brief and intense subjective sensations. Here, it is proposed to group them under a concept borrowed from philosophical literature [e.g., @Arango-Munoz2014; @DeSousa2009], namely, epistemic feelings. These particular kind of metacognitive experiences are described as feelings concerning the subject's own mental capacities and mental processes [@Arango-Munoz-2014], and seem to be peculiar in that they inform us of potential disruptions in the cognitive process. The emergence of such a feeling requires a "mismatch or dissociation between the processing and the contents of cognition" [@Moulin2014, p. 522]. While these experiences can be frustrating, they could be useful and serve an adaptive purpose by alerting us to what we know or do not know [@Cleary2013; @Schwartz2011].
+
+The most common example is the tip-of-the-tongue (ToT) state in which one is unable to retrieve a word while being aware of knowing it. For instance, one can recall the first letter of a word, other words or concepts which are semantically related, and even visualize the meaning of the word, but can't retrieve it. The interest in the ToT goes back to @James1882 who wrote about failed retrieval and the frustrating subjective experience that accompanies it. The emergence of a ToT depends on two simultaneously evaluations, that is, a) the inability to retrieve a word, and b) knowing that this word is yet known. The mismatch between these two evaluations will give rise to a phenomenological manifestation one can briefly feel. Thus, just as the warning light in our car is not a problem in itself, the peculiar sensation would not be a disturbance in itself but would alert us to the presence of an underlying conflict.
+
+An other well known example is the déjà vu phenomenon, in which "one feels as though a situation in familiar, despite evidence that the situation could not have been experienced before" [@Cleary2008, p. 353]. Specifically, déjà vu may result from a failed familiarity-based recognition without identification of the source of familiarity [@Brown2004]. This experience is also often accompanied by a feeling of premonition which gives the feeling its strangeness [@Cleary2018]. Déjà vu can only occur when there is a dissociation between the feeling of familiarity and the experience of an unfamiliar stimulus --- or when the prior experience of familiarity has been currently forgotten, as explained in the decoupled familiarity hypothesis [@Illman2012]. As for the ToT example, the arising of a déjà vu depends of a) a feeling of familiarity, and b) knowing that the feeling is wrong, which is a critical feature for the experience. Déjà vu-like experiences have been successfully induced in laboratory conditions using a failed recognition paradigms and, more recently, virtual reality technology [@Cleary2012]. Based on the Gestalt similarity hypothesis [@Brown2010; @Cleary2009; @Moulin2014], the idea was that the increasing of feature-match of a scene to one stored in memory give rise to more familiarity ratings, and therefore more déjà vu experiences whether the previously-viewed scene is not recognized.
+
+These two phenomena have a lot in common [@Schwartz2016]. They testify to our ability to being aware of the state of our cognitive system in real time. Déjà vu is a metacognitive sensation insofar as the sensation informs us that the wave of familiarity we feel is displaced because we are certain that we have never seen the scene responsible for the emergence of the sensation [@Moulin2013]. ToT is metacognitive because it informs us that we are familiar with the word we fail to retrieve [@Bacon2007]. It would seem that there are some cognitive functions aimed to detect cognitive failures and then regulating the state of the cognitive system in such situations. These functions are referred to cognitive control ability, but while many studies focused on how the control of cognition is achieved [@Baddeley1996; @Cohen1990; @Norman1986], and which neuroanatomical substrates are involved [@Cohen1996], only a few have addressed the question of recruitment of these functions. It is with this state of mind that the concept of conflict monitoring was proposed [@Botvinick2001; @VanVeen2001]. This system would monitor for the occurrence of conflicts in information processing by evaluating current levels of conflict and then transmitting this information on to centers responsible for control, triggering them to adjust the strength of their influence on processing. The most interesting point was the hypothesis by which the anterior cingulate cortex (ACC) may be responsible of such a system. Research has shown that the ACC would be active during the failed retrieval associated to a ToT phenomenon [@Maril2001; @Chua2014], as well as during a déjà vu [@Urquhart2018]. Indeed, since these phenomena imply a conflict between a high-level feeling about cognitive processing and the processing in itself, one would should expect similar functions to be involved in both cases. Whereas, as Anne Cleary's [@Cleary2009; @Cleary2012; @Cleary2013] researches on déjà vu induction demonstrates, scientific interest in these two phenomena is recently growing up, there is still one that does not enjoy the same fervour, that is, the jamais vu phenomenon.
+
+Jamais vu is a mental state in which one find something unfamiliar while knowing it to be familiar [@Moulin2020]. This feeling of strange novelty could arise in various situations, such as the practice of music or the processing of faces and places. Perhaps the most common example concerns words, in writing, spelling, or reading: by writing a well known word, for instance one's own name, one might then find that word suddenly strange, seeing only a series of lines with as much meaning as hieroglyphics. Then the feeling vanishes, leaving only an impression of weirdness. @Burnham1903 report the cas of one of his patients who, as a result of an overload of work, presents marked mnemonic impairments:
+
+> You have often experienced the sensation of oldness instead of newness when in a strange place--- that is, the feeling that you had seen the same before. Did you ever have the converse of that feeling? It happened to me several times of late. Objects the most familiar all at once seemed wholly strange and altogether unrecognizable as never having been seen before. One morning while on my way to the city I left the house and walked toward the place where I was to take the street car, a distance of four short blocks, a route traversed by me almost daily since I returned from------, and one quite familiar to me before I went away. I walked along absorbed in thought when I suddenly found myself in a strange place. I looked ahead, to the right and to the left, and then turned and looked back, but in no direction could I see anything I had ever seen before. I walked back to the street I had last crossed and looked up and down it but could see no familiar object [@Burnham1903, p. 383].
+
+Jamais vu is often operationalised as the opposite of déjà vu @Brown2003, and they are both symptoms of migraine and temporal lobe epilepsy [@Sengoku1997]. Compared to déjà vu, jamais vu is less frequent in healthy population [@Findler1998; @Sno2000], but more frequent in neuropsychiatric conditions [@Burwell2017]. In the same way that studying déjà vu has allowed us to learn more about how episodic memory works, studying jamais vu could help us to better understand some pathologies such as schizophrenia or the syndrome of Capgras, and could provide additional evidence of metacognitive experiences. However, jamais vu has so far been little studied, continually quoted alongside déjà vu or discussed from a philosophical point of view, and no definition has yet reached consensus in the scientific community.
+
+Despite the lack of studies on jamais vu, two related phenomena are well described in the literature: word alienation and semantic satiation [@Brown2003]. In an early study, @Severance1907 noted the loss of meaning that results from the prolonged visual fixation of a word. They have noticed that as the word becomes fixed, its meaning seems to fade from a simple confusion of letters to a series of meaningless symbols. Similar sensations have also been induced in word repetition tasks [@Bassett1919], but following criticisms by @Esposito1971, researchers are sought to be more objective, leading them to reveal cognitive disturbances through response times [@Smith1984; @Balota1997]. In these experiments, participants had to repeat a word for a short or long time before performing a semantic relation decision task. Results suggest a slower response time following a large number of repetitions for semantically related words only. Based on the model of [@Collins1975], the authors then interpret this effect as the propagation of concept activation overload within the semantic network, hence the name semantic satiation.
+
+In a recent study, @Moulin2020 used the word alienation task in order to induce jamais vu-like experiences experimentally. The idea was that at a terminological level, the term semantic satiation could refer to the cognitive process leading both to cognitive impairments --- measured by slower response times --- and to the arising of a subjective feeling, that could be considered as jamais vu. Moreover, whether linguistic material is used, the term word alienation could be a useful term to describe the procedure leading to that feeling. They used a word-writing protocol in which participants had to write a word until they felt peculiar sensations. Results suggest that 70.9% of participants reported at least one feeling they classified as jamais vu, and they found a positive correlation of .32 between the rate of experimental jamais vu and the percentage of jamais vu experienced in daily life, suggesting that feelings induced in laboratory conditions may be closely linked to the real jamais vu, which is a critical consideration for research into such unusual experiences. As @Roediger1996 suggested, the subjective feelings --- here considered as an experimental jamais vu --- could be some kind of alarm from the metacognitive spheres, and maybe generated by an underlying cognitive impairment.
+
+In the semantic satiation literature, we have distinguished on the one hand early studies that revealed feelings of loss of meaning, and on the other hand, more recent studies that revealed cognitive impairments. However, to our knowledge, no study had so far attempted to reconcile these two sides. It was guided by this idea that we previously tested the relatedness between semantic satiation and jamais vu, i.e., the cognitive process and the feeling (see [Appendix A](#appendix-a)). Our hypothesis was straightforward: If these two aspects are linked, we should then observe a correlation between reports of strange feelings and cognitive impairments. In order to test this, we used the same procedure as @Balota1997 in which we added reports of subjective reports of peculiar feelings. In this experiment, participants had to repeat a word 3 or 30 times and then realize a semantic relatedness decision task about a semantically related or unrelated word. Results highlighted two interesting points: Firstly, as expected, trials that generated feelings that we have considered to be jamais vu led to an increase in response times, and we found the same rate of jamais vu reports than @Moulin2020 experiment's. But surprisingly, we failed to replicate the semantic satiation effect --- indexed by the increase of reaction times following 30 repetitions for only related targets. Indeed, reaction times increased in the same way as a function of the number of repetitions, independently of the semantic relatedness. We have replicated this effect in a second study, and suggested that the effect measured by this kind of task might not be a purely semantic satiation effect. Instead of that, repetitions or prolonged fixations of a word could give rise to a general satiation effect slowing down any processing.
+
+Notwithstanding semantic satiation being purely semantic, reports of peculiar feelings are at least correlated with slower response times. Our interpretation was that these feelings indexed as jamais vu could be of particular interest by alerting us through a metacognitive experience of the presence of an underlying impairment in the cognitive processing, and as in déjà vu and ToT, one would expect that the ACC would also be recruited during a jamais vu occurence. In order to improve our comprehension of such a phenomenon, as researchers have done with the two feelings mentioned above, it would be useful to study the prevalence of jamais vu in an older population.
+
+A review of the literature suggests that older adults report fewer cognitive failures than do younger [@DeWinter2015; @Harty2017; @Rabbitt1990]. This is a counter-intuitive result in view of the general decline in cognitive performance in aging. One possible explanation is that older adults do have fewer cognitive failures. But we can also consider the possibility that older adults are simply less able to detect it. These differences might reflect a compensatory strategy aimed to avoid errors and might be associated with the alterations in performance monitoring, explaining longer reaction times of older adults [@Endrass2012]. According to @Mecacci2006 this decline in monitoring abilities might arise from a lack interest for their cognitive abilities from the moment they are no longer engaged in cognitively demanding work activities. They also suggest that age-related decline in cognitive performances might lead to a decrease in metacognitive abilities devoted to monitoring cognitive processes.
+
+This latter explanation may be supported by the differences in the resolution of episodic FOKs found between older and younger adults. Indeed, whilst aging has little or no effect on the resolution of semantic FOKs [@Allen2000; @Souchay2007], recent studies have suggested that the resolution of episodic FOKs is impaired in old age [@Perrotin2008; @Sacher2013]. These results have highlighted a correlation between the episodic FOK accuracy and the frontal lobe functioning [@Souchay2000]. The idea is that the age-related decline in episodic FOK results from frontal lobe impairments --- and so executive functions -- caused by aging. The @Souchay2007 study was particularly interesting in that sense they have found that the age-difference in episodic FOK disappears whether one takes into account subjective reports of memory awareness or recollection. This result subsequently formed the basis of the memory-constraint hypothesis [@Hertzog2010] which states that episodic FOKs deficits could result in a low levels of episodic memory strength, i.e., a lower encoding quality. The memory-constraint hypothesis predicts that, at a same level of recall and recognition, the episodic FOK resolution will be equivalent for young and older adults. This hypothesis have been supported by the @Sacher2013 study in which a divided attention paradigm have been used in order to simulate effects of aging on a young sample. Results have shown that the divided-attention condition effectively simulated effects of aging on mnemonic performance as well as FOK accuracy. However, these results do not completely contradict the monitoring-deficit hypothesis in aging, as the divided-attention condition during FOK judgements also affected FOK accuracy but to a lesser extent that the aging effect or the divided-attention condition during encoding. In contrast with semantic FOKs, episodic FOKs seem then be mediated by a recollection retrieval process [@Souchay2009] --- that is, autonoetic consciousness ---, itself depending of how the information was encoded. While judgments therefore appear to be preserved in aging, feelings are, for their part, perhaps subject to the aging decline. In sum, this is a somewhat novel hypothesis but is backed up by the pattern of a lack of autonoetic consciousness and resulting metacognitive accuracy in episodic FOKs in older adults.
+
+In agreement with our idea, many studies suggest that older adults report fewer déjà vu experiences than do younger [@Adachi2007; @Brown2004; @Chapman1951; @Moulin2014; @Sno1994]. This assumption might seem counter-intuitive because déjà vu is based on episodic memory, and since episodic memory declines with aging [for a review, see @Cansino2009], one would expect the number of déjà vu to increase with age. However, many biases could explain that: Firstly, because there are no known longitudinal studies on the topic, negative correlations between age and the number of reports of déjà vu might be due to a cohort effect rather than a direct effect of aging [@Bourque1970]. Indeed, these people may have had fewer déjà vu experiences even when they were young, for whatever sociological or cultural reasons, or because of the esoteric and nebulous character of such a feeling, it may have been less accepted or defined at the time. Another explanation would be due to age, but not so much in terms of cognitive changes as in terms of self-perception: knowing that they are old, older adults may simply attribute such a feeling to a consequence of aging rather than to any peculiar experience [@Moulin2014].
+
+In contrast, taking all these biases into account, it remains possible that the cognitive decline in aging plays a role in such a decrease of déjà vu incidences. Indeed, for the déjà vu to occur, it is necessary to have an intact recollection ability in order to produce the clash in mental evaluations [@Moulin2014]. Because older adults have impaired recollection abilities [@Souchay2007; for a review, see also @Yonelinas2002], they can't use them as much as the young in order to produce this mismatch: whether older adults feel some wave of familiarity in a situation that should not cause it, instead of being sure that they have never seen this scene and then produce the critical clash in mental evaluations, they will tend to question their memory and act as if they have simply forgotten it. This could partly explain the lower rates of déjà vu in older adults.
+
+While older adults report less déjà vu than do younger, many studies suggest that they report more ToTs [@Cohen1986; @Finley1989; for a detailed section, see @Schwartz2005]. These results contradict the age-related metacognitive decline hypothesis that older adults are less sensitive to their metacognitive experiences. As for déjà vu, no known longitudinal study has been conducted that allows for a cohort effect at the basis of such results instead of a real effect of age. However, two theories can be put forward in order to explain this: On the one hand, the decrement theory [@Burke1991] suggests that the increase in ToTs report with age could be due to a deterioration of the lexical network. With aging, connections between semantic representations and lexical representations are getting weaker [@Verhaegen2013], leading to a large number of retrieval failures, which older adults may experience as a ToT phenomenon. On the other hand, the incremental-knowledge theory [@Dahlgren1998] simply highlights the fact that older adults have a fuller vocabulary than younger adults. Logically, there is a greater number of potentially inaccessible words, which increases potential ToTs experiences. Note that these two theories are not exclusive, i.e., the increased rates of ToTs in aging could be due to a combination of these two mechanisms. Whatever it is, ToT does not seem to be the best example in order to highlight metacognitive decline in aging because of its too close relationship with language, dividing the research axis between psycholinguistic and metacognition.
+
+The previously presented studies on metacognitive experiences --- at least in the case of déjà vu --- suggest that one tends to become less sensitive to such experiences with age. This statement might also be supported by the decline in ACC during aging [@Mann2011; @Otsuka2006; @Pardo2007], reducing the likelihood of detecting and monitoring a conflict in any cognitive processing. However, another aspect should be taken into account regarding the experimental induction of jamais vu-like feelings. Indeed, as suggested by @Moulin2020, the application of a semantic satiation paradigm appears to be appropriate to the arising of such a feeling in laboratory conditions. But the semantic satiation effect itself tends to be age dependent [@Balota1997]. This finding is supported by the general trend that older adults are less sensitive than younger adults to all habituation-type effects and attentional processing [@Balota1992; @McDowd1992].
+
+Furthermore, older adults seem also to be less sensitive to the verbal transformation effect [@Pilotti2000; @Warren1966; @Yin1992], in which some phonologically related words came to mind across excessive repetitions of a given word. For example, if the repeated word is PACE, one may begin to hear words such as FACE, SPACE, or PASTE [see @MacKay1993]. This effect is more a production one than the actual loss of meaning resulting of a word repetition, but according to [@MacKay1969], it can be interpreted in the same way: within a satiation framework in which the repetition of a word tends to overload the corresponding lexical node and to reduce its expression, favouring the expression of other lexical nodes that are not semantically but phonologically related. The decline of such an effect in aging could be explain by both node structure theory [@Mackay1982] and age-related transmission deficit hypothesis [@Burke1991]. According to the node structure theory, there would be an age-related decrease in the degree of priming from lexical nodes to appropriate phonological information. Because of this, other phonologically related lexical representations will not receive as much activation as usual, explaining the decrease in the probability of verbal transformations. From this point of view, the problem is located between the lexical representation and the phonological output. Based on the transmission deficit hypothesis, the problem is situated before, somewhere between the orthographic pattern and the lexical representation.
+
+Whatever the problem is, habituation effects would be an useful process by which the system minimize the allocation of resources to repetitive informations so that those resources can be allocated to another relevant information [@Cowan1988; @MacKay1990; @Pilotti2004]. To our knowledge, however, only one article reports contrary results pointing out preserved habituation mechanisms in aging [@Langley1998]. Despite that, older adults therefore appear in general to be less efficient in withdrawing resources to already processed stimuli, and then keep allowing resources that would normally be devoted to the processing of new stimuli. Regarding our attempt to generate jamais vu sensations from habituation-type protocols, the lower sensitivity of older adults to this kind of phenomena may, in some way, play a role in jamais vu occurrences and thus should be taken in account in our interpretations.
+
+The aim of the current study was straightforward, seeking to extend our previous results by testing jamais vu occurrences in an older population. Knowing whether jamais vu increases or decreases with age is an important issue, because it may shed some light on the mechanisms of jamais vu arising, and enrich a part of the literature still little referenced, namely, metacognitive experiences in healthy aging. Because the particular current situation has not allowed to experiment with older adults, the following results will come from two experiments. As first experiment, we will present results from a study conducted in October 2019. This experiment was a replication of the one we conducted last year except for two differences: Firstly, instead of semantically related words belonging to the same category, each pair was composed of one name of category (e.g., COULEUR) as prime, and one target either from that category (member condition), either from another (non-member condition). According to the spreading activation model [@Collins1975], activation - and thus satiation - need not go through the category name high-level, but simply can propagate between related nodes. However, we still applied this change to replicate @Smith1984's exact design and verify whether the semantic satiation effect would not reveal itself under these conditions. Secondly, when participants felt strange feelings, they no longer had to report it verbally but instead press the SPACE key on the keyboard. The hypotheses were the same as in our previous study, i.e. that only access to semantically related targets would be affected by repetition (indicative of a semantic satiation effect), and that trials for which a jamais vu occurred would result in stronger cognitive impairments. As second experiment, we will present the results obtained on the control group (i.e., young adults). Finally, we will discuss the results of the first experiment and then speculate about results and implications of the present study as it was to have been carried out. Access to OSF pre-registration of the study as originally planned is available here: [<https://osf.io/7g2en>].
+
+# Experiment 1
+
+## Method
+
+#### Participants
+
+```{r pp_replic, include = FALSE}
+
+df_infos_r <- read_excel("liste_pp_replic.xlsx") %>% 
+  rename(age = Âge)
+
+## calculate mean and sd age
+M_age = mean(as.numeric(df_infos_r$age))
+SD_age = sd(as.numeric(df_infos_r$age))
+
+#`r M_age`
+#`r SD_age`
+#
+#`r apa(M_age, 2, T)`                               #The apa function takes three arguments:
+# `r apa(SD_age, 2, T)`                             #- a single number or a numeric vector
+#                                                   #- the number of decimal places you want
+#                                                   #- T include the zero (0.51) or F exclude the zero (.51)
+
+
+```
+
+Seventy-two participants took place in the experiment (`r sum(df_infos_r$Genre=='F')` women and `r sum(df_infos_r$Genre=='M')` men). They were all psychology students, French native speakers, and had a normal or corrected to normal vision. The average age was `r apa(M_age, 2, T)` years old (*SD* = `r apa(SD_age, 2, T)`). Based on an alpha of .05, power of .95, and effect size of .40 --- based on @Smith1984's study --- and four conditions for a dependant samples t-test, we calculated to need 70 participants in G\*Power [@Faul2007]. The final choice was made with 72 participants, so that the four conditions would contain the same number of participants, (i.e., 18 participants per condition). All participants were rewarded with course credits. In order to detect outliers, instead of the standard errors around the mean, we used the absolute deviation around the median (MAD), which is known to be a more robust measure of dispersion [@Leys2013].
+
+#### Material and design {#back-to-method}
+
+Stimuli used were 80 semantically related word pairs. They were selected following the completion of an online questionnaire by 43 individuals. In this questionnaire, 40 category names taken from the lists of @Battig1969 and @Smith1984 were presented to participants. For each, the participants were asked to write the first three words that came to mind and that seemed to belong to the category. The most frequent word in each question was selected to construct the semantically related word pairs. Two lists of 40 word pairs were constructed (see [Appendix C](#appendix-c)), each list containing 20 category names associated with a member (e.g. COULEUR --- ROUGE) and 20 others associated with a non-member (e.g. FRUIT --- CHAT). Each pair therefore contained a prime word and a target word. Because there were two repetition conditions and two levels of relatedness, eight lists were constructed in order to ensure complete counterbalancing. Participants did not see any word for more than one trial and the order of trials was randomised anew for each participant. A list of 8 pairs of words was built in a similar way for training. The experiment was built on Opensesame software (version 3.2.8 Kafkaesque Koffka). The stimuli were presented in white capital letters on a black background. In this experiment, the design was a 2 (number of repetitions: 3 vs. 30) \* 2 (semantic relatedness: related vs. unrelated) within-factor design.
+
+#### Procedure
+
+Participants were individually tested in a 20-minute session. Each participant randomly completed 8 training and 40 experimental trials on only one of the eight lists constructed. A break was set after 20 attempts. Odd participants had list 1 while even participants had list 2. Thus, each of them randomly saw only 20 semantically related targets and 20 unrelated targets. Within each of the 20 pairs, 10 prime words were presented 3 times while the other 10 were presented 30 times so that each participant saw only 10 words per condition. A trial was built as following: (1) a fixation dot was displayed in the center of the screen for 1 second; (2) a prime word was presented either 3 times or 30 times for 500 ms with a 100-ms interval, and the participant had to focus his gaze on the word and pronounce it each time it appeared; (3) a fixation dot of 1.5 second was presented; (4) the target word was displayed and the participant had to press the "P" key if the target was related to the prime and the "A" key if it was not. The keyboard responses were counterbalanced from one subject to another; (5) a feedback on response time was displayed to encourage faster responses [@Pachella1973] and to avoid a flattening of response times due to the repetitive and hypnotizing nature of the task. Before the experiment began, each participant was made aware of the fact that he or she had to report any peculiar sensation due to the repetition of words. If necessary, participants had to verbally indicate to the experimenter by a previously agreed word the appearance of a peculiar sensation during the word repetitions. The experimenter's instructions on this detail was the same for all subjects, as vague as possible about the type of potential sensation to avoid demand bias, and justified as a possible phenomenon in an experiment using the priming technique. At the end of the test, each participant had to complete a questionnaire (see [<https://osf.io/3s6q2/>]) inviting them to describe the sensations potentially felt and make the link with sensations of jamais-vu or déjà-vu in daily life.
+
+#### Data analysis
+
+We used R (Version 3.6.1; "Action of the Toes") for all our analyses. We used a mixed models analysis [@Judd2012; @Westfall2014] with the lme4 package (version 1.1-21) [@Bates2012]. P-values were obtained by Satterthwhaite approximation with the lmerTest package (version 3.1-0) [@Kuznetsova2015]. In this kind of analysis, and in contrast with traditional analyses of variance (e.g., ANOVA), multiple random factors are used (e.g., participants, stimuli) instead of one. Accordingly, mixed models allow to generalize the results not only over one but over every random term (i.e., over all participants and all stimuli at the same time) and thus maximize the generalizability of results compared to traditional analyses. Importantly for our purpose, this analysis also enables to test the variability of our effects (e.g., number of repetitions and semantic relatedness) for several random factors (e.g., participants and stimuli). As the residuals did not follow a normal distribution, we used the bestNormalize package (version 1.5.0) which estimates and applies the best possible transformation among several possibilities.
+
+We also used a Bayesian analysis approach in addition to mixed models. [^1] In Bayesian model comparison, the null hypothesis is directly compared to the alternative hypothesis, and evidence for both the null effect and the the effect of interest can be simulatneously tested [@Dienes2014], while frequentist statistics only test the effect of interest by rejecting the null hypothesis. Statistical results are interpreted using the Bayesian Factor (BF), which reflects the likelihood ratio of a given model (e.g., effect of interest). The model with the highest BF value be favoured over others. We used the classification proposed by previous studies [@Jeffreys1998; @Wagenmakers2011]: A BF of 1 provides no evidence, 1 \< BF \< 3 provides anecdotal evidence, 3 \< BF \< 10 provides moderate evidence, 10 \< BF \< 30 provides strong evidence, 30 \< BF \< 100 provides very strong evidence, and 100 \< BF provides extreme/decisive evidence.
+
+[^1]: This method has already been used in psycholinguistic [see @Kowialiewski2018].
+
+## Results and discussion
+
+```{r data import_r, include = FALSE}
+
+path <- "jv_replic_xlsx/subject-" 
+
+for(subj in 1:72){
+  fullpath <- paste(path, toString(subj), ".xlsx", sep = "")
+  df_tmp <- read_excel(fullpath) %>% 
+    select(pp,
+           prime,
+           target,
+           number_presentation,
+           semantic_relation,
+           correct_response,
+           response_keyboard_response,
+           response_time,
+           response_keyboard_response_JV,
+           response_time_keyboard_response_JV, 
+           jv_pp, 
+           experiment_file, 
+           hour,  
+           number_jv)
+  
+  if(subj == 1) {
+    dfr <- df_tmp
+  }
+  dfr <- dplyr::union(dfr, df_tmp)
+}
+
+
+
+```
+
+```{r restructure_r, include = FALSE}
+
+dfr_ok <- dfr %>% 
+  transform(
+    semantic_relation = ifelse(semantic_relation == "r", "related", "unrelated"), 
+    number_presentation = ifelse(number_presentation == 3, "3", "30"), 
+    response_keyboard_response_JV = ifelse(response_keyboard_response_JV == "p", "presence", "absence")
+  ) %>% 
+  rename(
+    `jamais vu` = response_keyboard_response_JV
+  ) %>% 
+  mutate(
+    logRT = log(response_time),
+    correct = ifelse(response_keyboard_response == correct_response, 1, 0), 
+    invRT = 1000 / response_time
+  ) %>% 
+  mutate(
+    Cnum_pres = -0.5*(number_presentation == 3) + 0.5*(number_presentation == 30), 
+    Csem_rel = -0.5*(semantic_relation == "related") + 0.5*(semantic_relation == "unrelated")
+  ) %>% 
+  filter(
+    correct == 1
+  ) %>% 
+  group_by(pp) %>% 
+  mutate(
+    med = median(response_time), 
+    mad = mad(response_time, center = median(response_time), constant = 1.4826, na.rm = FALSE,
+              low = FALSE, high = FALSE),
+    mad3 = med + (3*mad), 
+    madinv = med - (3*mad)
+  ) %>% 
+  filter(
+    response_time < mad3, 
+    response_time > madinv, 
+    response_time > 200
+  ) %>% 
+  mutate(`semantic relatedness` = semantic_relation)
+
+
+# create a df to calculate weighted averages
+dfr_average <- dfr_ok %>% 
+  group_by(pp, number_presentation, semantic_relation) %>% 
+  summarise(response_time = mean(response_time)) #%>% 
+#  ungroup() %>% 
+#  group_by(number_presentation, semantic_relation) %>% 
+#  summarise(response_time = mean(response_time))
+
+
+# analysis on the semantic satiation hypothesis by isolating trials that generated jamais vu
+dfr_SS_JV <- dfr_ok %>% 
+  filter((number_presentation == 3 & `jamais vu` == "absence") | (number_presentation == 30 & `jamais vu` == "presence"))
+
+# create a df to calculate averages
+dfr_SS_JV_average <- dfr_SS_JV %>% 
+  group_by(pp, number_presentation, semantic_relation) %>% 
+  summarise(response_time = mean(response_time))
+
+
+# creation of a df for the exploratory analysis about the simple effect of semantic relatedness in the 3-repetition condition
+dfr_simple <- dfr_ok %>% 
+  filter(number_presentation == "3")
+
+```
+
+The results of this experiment can be split into two main parts: Firstly we aimed to replicate @Balota1997's results by highlighting a semantic satiation effect --- indexed by an increase of reaction times following 30 rather than 3 repetitions only for semantically related targets (semantic satiation hypothesis). Secondly, if the subjective feeling and the cognitive impairments are linked, trials that generated jamais vu sensations should lead to an increase of reaction times (jamais vu hypothesis). To analyze response times (RTs), we removed incorrect responses (i.e., 5.1% of all trials, or 147 observations), as well as RTs considered as outliers. The application of the MAD method allowed us to exclude all responses higher than 3 MAD above and below the median for each participant, which represent 6.55% of all good responses (i.e., 179 observations). Because of the distribution of residuals didn't follow a normal distribution, we applied an ordered quantile normalizing transformation on the dependant variable.
+
+### Semantic satiation hypothesis
+
+```{r models_r, include = FALSE}
+
+# approach by model comparison
+# ...
+
+Norm <- bestNormalize(dfr_ok$response_time)
+dfr_ok$norm = Norm[["x.t"]]
+
+# final model
+lm_01 <- lmer(logRT ~ (Cnum_pres*Csem_rel) + (Cnum_pres + Csem_rel || pp) + (0 + Csem_rel | target), data = dfr_ok)
+summary(lm_01)
+
+
+# final model
+lm_SS_JV <- lmer(logRT ~ (Cnum_pres*Csem_rel) + (Cnum_pres + Csem_rel || pp) + (0 + Csem_rel | target), data = dfr_SS_JV)
+summary(lm_SS_JV)
+
+# study of the distribtion of residuals
+hist(residuals(lm_01))
+qqnorm(residuals(lm_01))
+qqline(residuals(lm_01))
+
+shapiro.test(residuals(lm_01))
+
+# find out observations which are not well distributed
+lattice::qqmath(lm_01,id=0.1,idLabels=~.obs)
+dfr_ok <- dfr_ok[-1971, ]
+
+performance::check_model(lm_01,
+                         check = c("qq",
+                                   "normality",
+                                   "ncv",
+                                   "outliers"))
+
+#--------------------------------------------------------------------------------------------------
+
+# effect sizes (estimate / sqrt(sum all variances of random effects))
+# number repetitions
+ 0.12594 / sqrt(0.18318 + 0.01889 +  0.01063 + 0.00553 + 0.12090)
+ # .21
+
+# semantic relation
+ 0.03570 / sqrt(0.18318 + 0.01889 +  0.01063 + 0.00553 + 0.12090)
+ # .06
+ 
+# interaction
+ 0.03124 / sqrt(0.18318 + 0.01889 +  0.01063 + 0.00553 + 0.12090)
+ # .05
+
+#--------------------------------------------------------------------------------------------------
+ 
+# Bayesian
+str(dfr_ok)
+dfr_ok$pp <- as.factor(dfr_ok$pp)
+dfr_ok$target <- as.factor(dfr_ok$target)
+dfr_ok$Cnum_pres <- as.factor(dfr_ok$Cnum_pres)
+dfr_ok$Csem_rel <- as.factor(dfr_ok$Csem_rel)
+
+BFsem <- anovaBF(logRT ~ Cnum_pres : Csem_rel + pp, whichRandom = "pp", data = dfr_ok, 
+                 iterations = 10000, whichModels = "top")
+BFsem   
+
+# because the output of the model is H0, we have to search thhhe inverse of the parameter's result
+1/BFsem[3] # number of repetitions : 6.472073e+15 ±4.43%
+1/BFsem[2] # semantic relation :  1.127413 ±4.26%
+1/BFsem[1] # interaction : 0.1099496 ±4.8%
+
+#--------------------------------------------------------------------------------------------------
+
+# analysis about the simple effect of semantic relatedness in the 3-repetitions condition
+t.test(logRT ~ semantic_relation, data = dfr_simple)
+
+# effect size
+cohen.d(logRT ~ semantic_relation, data = dfr_simple)
+
+# Bayesian simple effect
+str(dfr_simple)
+dfr_simple$pp <- as.factor(dfr_simple$pp)
+dfr_simple$target <- as.factor(dfr_simple$target)
+dfr_simple$semantic_relation <- as.factor(dfr_simple$semantic_relation)
+
+BFsimple <- anovaBF(logRT ~ semantic_relation + pp, whichRandom = "pp", data = dfr_simple, 
+                 iterations = 10000, whichModels = "top")
+BFsimple  
+
+1/BFsimple[1] # semantic_relation : 2.036531 ±1.81%
+
+```
+
+In order to test the first hypothesis, we used a mixed model analysis with the interaction between the number of repetitions and the semantic relatedness as fixed effects. The application of the Bates method [@Bates2015] allowed us to estimate an intercept and a slope for the two variables per participants, and a slope for only the semantic relatedness per stimuli. Average response times and standard errors are shown in Table \@ref(tab:table-1) and Figure \@ref(fig:figure-1). The analysis revealed a main effect of the number of repetitions [*t*(72.11) = 5.90, *p* \< .001, *d* = .21], indicating that reaction times were slower following 30 rather than 3 repetitions. Reaction times were faster when the prime is related to the target rather than not, but this difference was not significant [*t*(51.23) = 1.63, *p* \> .05, *d* = .06], as well as the interaction [*t*(2328.13) = 1.13, *p* \> .05, *d* = .05]. Given that the frequentist approach is not adapted to interpret the absence of an effect, we performed a Bayesian ANOVA which estimates the probability of the existence of an effect (see left part of Table \@ref(tab:table-2)). By running 10 000 iterations, results suggested extreme evidence of the presence of a general slowdown effect following repetitions. However, there was only an anecdotal evidence for the semantic relatedness effect, and no evidence for the interaction.
+
+```{r table-1, fig.cap="\\label{tab:table-1}table-1", out.width = "\\textwidth", fig.pos = "!h",  echo = FALSE, results = 'asis'}
+
+dfr_3 <- dfr_average %>% 
+  filter(number_presentation == "3") %>% 
+  spread(semantic_relation, response_time) %>% 
+  ungroup() %>% 
+  select("related", "unrelated")
+  
+dfr_30 <- dfr_average %>% 
+  filter(number_presentation == "30") %>% 
+  spread(semantic_relation, response_time) %>% 
+  ungroup() %>% 
+  select("related", "unrelated")
+
+
+M3 <- t(apply(dfr_3, 2, function(x) {
+    round(c(Mean = mean(x, na.rm = TRUE), SD = sd(x, na.rm = TRUE), Min = min(x, na.rm = TRUE), Max = max(x, na.rm = TRUE)), 2)
+  }))
+
+M30 <- t(apply(dfr_30, 2, function(x) {
+    round(c(Mean = mean(x, na.rm = TRUE), SD = sd(x, na.rm = TRUE), Min = min(x, na.rm = TRUE), Max = max(x, na.rm = TRUE)), 2)
+  }))
+
+
+apa_table(cbind(M3, M30),
+          placement = "ht", 
+          align = c("l", rep("l", 8)),          
+          caption = "Reaction times as a function of the number of repetitions and the semantic relatedness",
+          note = "All values are in milliseconds.",
+          added_stub_head = 'semantic relatedness', 
+          col_spanners = list(`3` = c(2, 5), `30` = c(6, 9)))
+
+```
+
+```{r figure-1, fig.cap="\\label{fig:figure-1}Reaction times and standard errors as a function of the number of repetitions and the semantic relatedness", echo = FALSE, results = 'asis'}
+
+par(
+  list(
+    family = "serif", 
+    adj = 0.5, 
+    cex.main = 1, 
+    cex.axis = 1, 
+    cex.lab = 1
+  ), 
+  no.readonly = FALSE
+)
+
+apa_lineplot(
+  dfr_ok, 
+  id = "pp", 
+  dv = "response_time", 
+  factors = c("number_presentation", 'semantic relatedness'), 
+  dispersion = se, 
+  jit = 0.1, 
+  args_legend = list(x = "bottom", inset = 0.05), 
+  xlab = "number of repetitions", 
+  ylab = "response time (ms)", 
+  ylim = c(900, 1400), 
+  las = 1
+)
+
+```
+
+These results seem to have several inconsistencies with the literature [@Smith1984; @Balota1997] which will be discussed in more detail below. First at all, the interaction effect --- which was the major condition of the semantic satiation hypothesis --- was absent from our analysis. According to the semantic satiation hypothesis, only access to concepts semantically related to the satiated word should have been slowed down by repetition. Secondly, there was only a weak semantic priming effect. As an exploratory analysis, we conducted a t-test on the simple effect of semantic relatedness for only the 3-repetitions condition, which was not significant [*t*(1316) = -1.36, *p* \> .05, *d* = .07]. The Bayesian analysis on this simple effect revealed an anecdotal evidence of its presence (BF = 2.04 ±1.81%). This result clearly shows that in our experiment, even the control condition was disrupted by the latency state generated by the task. [^2]
+
+[^2]: As this result was surprising, we carried out another set of exploratory analyses which was similar in all aspects except for the detection of outliers. Instead of the MAD, we used the same technique as @Balota1997. Results can be seen in [Appendix B](#appendix-b). Even if this change revealed a pattern closer to that of Balota1997, the effects did not become more significant.
+
+```{r table-2, fig.cap="\\label{tab:table-2}table-2", warning = FALSE, out.width = "\\textwidth", fig.pos = "!h", results = 'asis'}
+
+tableBF1 <- matrix(c(6.47e+15, 1.13,  0.11, 4.43, 4.26, 4.8), ncol = 3, byrow = TRUE)
+colnames(tableBF1) <- c("repetitions", "relation", "interaction")
+rownames(tableBF1) <- c("BF","± (%)")
+
+tableBF2 <- matrix(c(0.69, 0.81,  3.86, 2.81, 2.81, 3.7), ncol = 3, byrow = TRUE)
+colnames(tableBF2) <- c("jamais vu", "relation", "interaction")
+rownames(tableBF2) <- c("BF","± (%)")
+
+
+apa_table(cbind(tableBF1, tableBF2),
+          placement = "ht", 
+          align = c("l", rep("c", 8)),          
+          caption = "Bayesian Factor values as a functions of variables from the two hypotheses",
+          note = "repetitions = number of repetitions; relation = semantic relatedness; jamais vu = jamais vu presence",
+          col_spanners = list(`semantic satiation hypothesis` = c(2, 4), `jamais vu hypothesis` = c(5, 7)))
+
+```
+
+### Jamais vu hypothesis {#back-to-jv}
+
+```{r restructure_rJV, include = FALSE}
+
+dfr_hyp1 <- dfr_ok %>%  
+  filter(number_presentation == 30) %>% 
+  filter(jv_pp == 1) %>% 
+  select(pp, Csem_rel, `jamais vu`, invRT, logRT, target, response_time, semantic_relation, 'semantic relatedness') %>% 
+  mutate(Cjv = ifelse(`jamais vu` == "absence", -0.5, 0.5))
+
+# create a df to calculate weighted averages
+dfr_average_hyp1 <- dfr_hyp1 %>% 
+  group_by(pp, `jamais vu`, semantic_relation) %>% 
+  summarise(response_time = mean(response_time))
+
+# create a df for correlations only on participants who felt at least one sensation
+dfr_sens <- df_infos_r %>% 
+  filter(JV == "OUI")
+
+# create a df for average sensations per participants (only the sensible ones)
+dfr_senspp <- dfr %>% 
+  filter(response_keyboard_response_JV == "p")
+
+```
+
+```{r sensations_r informations, include = FALSE}
+
+# count number of participants who reported at least one sensation
+df_infos_r %>% 
+  count(JV)
+
+# count the total number of JV
+df_infos_r %>% 
+  summarise(sum(as.numeric(nombre_JV)))
+
+# count the number of JV per condition
+dfr %>%
+  group_by(number_presentation) %>%
+  count(response_keyboard_response_JV == "p")
+
+
+# count of the average of sensations per participants
+M_JV = df_infos_r %>% 
+  filter(JV == "OUI") %>% 
+  summarise(
+    mean(as.numeric(nombre_JV)), 
+    sd(as.numeric(nombre_JV))
+  )
+
+M_JV = mean(as.numeric(df_infos_r$nombre_JV))
+SD_JV = sd(as.numeric(df_infos_r$nombre_JV))
+
+M_JV_sens = mean(as.numeric(dfr_sens$nombre_JV))
+SD_JV_sens = sd(as.numeric(dfr_sens$nombre_JV))
+
+```
+
+```{r correlations, include = FALSE}
+
+# correlation number JV & frequency JV
+cor.test(as.numeric(as.factor(dfr_sens$nombre_JV)), as.numeric(as.factor(dfr_sens$Frequ_JV)))
+#         cor       t = -0.53248, df = 57, p-value = 0.5965
+# -0.07035379 
+ggplot(dfr_sens, aes(x = nombre_JV, y = Frequ_JV)) + 
+  geom_point() +
+  stat_smooth(method = 'lm', col = 'steelblue') +
+  theme_apa()
+
+
+# correlation frequency JV & frequency DV
+cor.test(as.numeric(as.factor(dfr_sens$Frequ_JV)), as.numeric(as.factor(dfr_sens$Frequ_DV)))
+#        cor        t = 0.13179, df = 57, p-value = 0.8956
+# 0.01745277 
+ggplot(dfr_sens, aes(x = Frequ_JV, y = Frequ_DV)) + 
+  geom_point() +
+  stat_smooth(method = 'lm', col = 'steelblue') +
+  theme_apa()
+
+# correlation frequency JV & frequency ToT
+cor.test(as.numeric(as.factor(dfr_sens$Frequ_JV)), as.numeric(as.factor(dfr_sens$Frequ_TOT)))
+#       cor         t = 0.78598, df = 57, p-value = 0.4351
+# 0.1035463 
+ggplot(dfr_sens, aes(x = Frequ_JV, y = Frequ_TOT)) + 
+  geom_point() +
+  stat_smooth(method = 'lm', col = 'steelblue') +
+  theme_apa()
+
+```
+
+```{r model_rJV, include = FALSE}
+
+# final model
+lm_jvr<- lmer(logRT ~ (Cjv*Csem_rel) + (Cjv + Csem_rel || pp) + (Csem_rel || target), data = dfr_hyp1)
+summary(lm_jvr)
+
+# study of the distribtion of residuals
+hist(residuals(lm_jvr))
+
+qqnorm(residuals(lm_jvr))
+qqline(residuals(lm_jvr))
+
+shapiro.test(residuals(lm_jvr))
+
+
+norm_jv <- bestNormalize(dfr_hyp1$response_time)
+
+dfr_hyp1$norm <- norm_jv[["x.t"]]
+
+performance::check_model(lm_jvr,
+                         check = c("qq",
+                                   "normality",
+                                   "ncv",
+                                   "outliers"))
+
+#--------------------------------------------------------------------------------------------------
+
+# effect sizes (estimate / sqrt(sum all variances of random effects))
+# presence jamais vu
+0.05461 / sqrt(0.1808 + 0.01880 + 0.01600 + 0.000000002285 + 0.01293 +  0.1255)
+# .09
+
+# semantic relation
+0.05499  /  sqrt(0.1808 + 0.01880 + 0.01600 + 0.000000002285 + 0.01293 +  0.1255)
+# .09
+
+# interaction
+ 0.14220  / sqrt(0.1808 + 0.01880 + 0.01600 + 0.000000002285 + 0.01293 +  0.1255)
+# .23
+
+#--------------------------------------------------------------------------------------------------
+
+#Bayesian
+str(dfr_hyp1)
+dfr_hyp1$pp <- as.factor(dfr_hyp1$pp)
+dfr_hyp1$target <- as.factor(dfr_hyp1$target)
+dfr_hyp1$Cjv <- as.factor(dfr_hyp1$Cjv)
+dfr_hyp1$Csem_rel <- as.factor(dfr_hyp1$Csem_rel)
+
+BFsem <- anovaBF(logRT ~ Cjv : Csem_rel + pp, whichRandom = "pp", data = dfr_hyp1, 
+                 iterations = 10000, whichModels = "top")
+BFsem   
+
+# because the output of the model is H0, we have to search the inverse of the parameter's result
+1/BFsem[3] # jamais vu presence :  0.6896023 ±2.81%
+1/BFsem[2] # semantic relation :  0.8086263 ±2.81%
+1/BFsem[1] # interaction : 3.858581 ±3.7%
+ 
+```
+
+Before any analysis, this sub-section will begin with the classification of jamais vu reports. Any peculiar sensation was reported during the task and described in the end of the experiment. Based on the experiment of @Moulin2020, a sensation was considered to be jamais vu when one or more of the following options were selected in the end of experiment questionnaire: *le mot ne semblait pas réel*; *l'orthographe paraissait incorrect*; *c'est comme si je voyais le mot pour la première fois*; and *le mot semblait avoir perdu son sens*. Among all choices, the last one was the most selected by participants (i.e., 100% of participants who reported at least one sensation). On the sample of 72 participants, `r sum(df_infos_r$JV=='OUI')` of them (81.9%) felt at least one sensation that can be characterized as jamais vu. There were a total of `r sum(dfr$response_keyboard_response_JV=='p')` reports of jamais vu (i.e., 28.02% of all observations), which 68 of them in the 3-repetitions condition (i.e., 4.72%) and 739 in the 30-repetitions condition (i.e., 51.31%). The average number of jamais-vu was calculated on all participants (*M* = `r apa(M_JV, 2, T)`, *SD* = `r apa(SD_JV, 2, T)`), as well as for participants who reported at least one sensation (*M* = `r apa(M_JV_sens, 2, T)`, *SD* = `r apa(SD_JV_sens, 2, T)`). There was no correlation between the number of jamais vu felt in the experiment and the frequency of jamais vu in daily life, as well as between the frequency of jamais vu in daily life and other feelings such as déjà vu or ToT.
+
+In order to test the second hypothesis, we have focused on the satiation-type trials (i.e., 30-repetition condition), as well as on participants who experienced at least one sensation of jamais vu. We have used a mixed model analysis with the interaction between the presence of a jamais vu in a trial and the semantic relatedness as fixed effects. Using the method of [@Bates2015], we estimated as random effects an intercept and a slope for the two variables per participants and for only the semantic relatedness per stimuli. Average response times and standard errors are shown in Table \@ref(tab:table-3) and Figure \@ref(fig:figure-2). The analysis revealed only the effect of interaction [*t*(714.48) = 2.82, *p* \< .01, *d* = .23]. There was no effect of the semantic relatedness [*t*(42.30) = 1.61, *p* \> .05, *d* = .09], as well as the presence of jamais vu [*t*(53.68) = 1.63, *p* \> .05, *d* = .09]. Bayesian results (see right part of Table \@ref(tab:table-2)) confirmed that there was no effect of the type of trial as well as the effect of semantic relatedness (BF values \< 1). However, the BF \> 3 suggest a moderate evidence for the interaction effect.
+
+```{r table-3, fig.cap="\\label{tab:table-3}table-3", out.width = "\\textwidth", fig.pos = "!h", echo = FALSE, results = 'asis'}
+
+dfrJV_abs <- dfr_average_hyp1 %>% 
+  filter(`jamais vu` == "absence") %>% 
+  spread(semantic_relation, response_time) %>% 
+  ungroup() %>% 
+  select("related", "unrelated")
+
+dfrJV_pres <- dfr_average_hyp1 %>% 
+  filter(`jamais vu` == "presence") %>% 
+  spread(semantic_relation, response_time) %>% 
+  ungroup() %>% 
+  select("related", "unrelated")
+
+MJV_abs <- t(apply(dfrJV_abs, 2, function(x) {
+    round(c(Mean = mean(x, na.rm = TRUE), SD = sd(x, na.rm = TRUE), Min = min(x, na.rm = TRUE), Max = max(x, na.rm = TRUE)), 2)
+  }))
+  
+MJV_pres <- t(apply(dfrJV_pres, 2, function(x) {
+    round(c(Mean = mean(x, na.rm = TRUE), SD = sd(x, na.rm = TRUE), Min = min(x, na.rm = TRUE), Max = max(x, na.rm = TRUE)), 2)
+  }))
+
+apa_table(cbind(MJV_abs, MJV_pres),
+          placement = "ht", 
+          align = c("l", rep("l", 8)),          
+          caption = "Reaction times as a function of the number of repetitions and the semantic relatedness",
+          note = "All values are in milliseconds.",
+          added_stub_head = 'semantic relatedness', 
+          col_spanners = list(`jamais vu absence` = c(2, 5), `jamais vu presence` = c(6, 9)))
+
+```
+
+```{r figure-2, fig.cap="\\label{fig:figure-2}Reaction times and standard errors as a function of the presence of jamais vu and the semantic relatedness", echo = FALSE, results = 'asis'}
+
+par(
+  list(
+    family = "serif", 
+    adj = 0.5, 
+    cex.main = 1, 
+    cex.axis = 1, 
+    cex.lab = 1
+  ), 
+  no.readonly = FALSE
+)
+
+apa_lineplot(
+  dfr_hyp1, 
+  id = "pp", 
+  dv = "response_time", 
+  factors = c('jamais vu', 'semantic relatedness'), 
+  dispersion = se, 
+  jit = 0.1, 
+  args_legend = list(x = "bottom", inset = 0.05), 
+  xlab = "jamais vu", 
+  ylab = "response time (ms)", 
+  ylim = c(1000, 1600), 
+  las = 1
+)
+
+```
+
+An interesting aspect of this sub-section is the decrease in response times for unrelated words when a jamais vu occurs. This sheds a light on a relatedness still unreferenced in the literature, namely, the link between the cognitive impairment and the subjective feeling. In experiments on semantic satiation [@Balota1997; @Smith1984], it is unclear whether participants who showed impaired cognitive also felt peculiar feelings. However, in our particular case, the general trend of slowing down may be mixed with the effect of jamais vu (if such an effect exists) and make it difficult to interpret. Indeed, the current design of the first experiment did not allow the two effects to be distinguished, which is why we have applied some modifications to the second experiment.
+
+```{r table-4, fig.cap="\\label{tab:table-4}table-4", out.width = "\\textwidth", fig.pos = "!h", echo = FALSE, results = 'asis'}
+
+dfr_3_SS_JV <- dfr_SS_JV_average %>% 
+  filter(number_presentation == "3") %>% 
+  spread(semantic_relation, response_time) %>% 
+  ungroup() %>% 
+  select("related", "unrelated")
+  
+dfr_30_SS_JV <- dfr_SS_JV_average %>% 
+  filter(number_presentation == "30") %>% 
+  spread(semantic_relation, response_time) %>% 
+  ungroup() %>% 
+  select("related", "unrelated")
+
+
+M3_SS_JV <- t(apply(dfr_3_SS_JV, 2, function(x) {
+    round(c(Mean = mean(x, na.rm = TRUE), SD = sd(x, na.rm = TRUE), Min = min(x, na.rm = TRUE), Max = max(x, na.rm = TRUE)), 2)
+  }))
+
+M30_SS_JV <- t(apply(dfr_30_SS_JV, 2, function(x) {
+    round(c(Mean = mean(x, na.rm = TRUE), SD = sd(x, na.rm = TRUE), Min = min(x, na.rm = TRUE), Max = max(x, na.rm = TRUE)), 2)
+  }))
+
+
+apa_table(cbind(M3_SS_JV, M30_SS_JV),
+          placement = "ht", 
+          align = c("l", rep("l", 8)),          
+          caption = "Reaction times as a function of the number of repetitions and the semantic relatedness",
+          note = "All values are in milliseconds.",
+          added_stub_head = 'semantic relatedness', 
+          col_spanners = list(`3` = c(2, 5), `30` = c(6, 9)))
+
+```
+
+```{r figure-3, fig.cap="\\label{fig:figure-3}Relatedness between the semantic satiation effect and the jamais vu experience", echo = FALSE, results = 'asis'}
+
+par(
+  list(
+    family = "serif", 
+    adj = 0.5, 
+    cex.main = 1, 
+    cex.axis = 1, 
+    cex.lab = 1
+  ), 
+  no.readonly = FALSE
+)
+
+apa_lineplot(
+  dfr_SS_JV, 
+  id = "pp", 
+  dv = "response_time", 
+  factors = c("number_presentation", 'semantic relatedness'), 
+  dispersion = se, 
+  jit = 0.1, 
+  args_legend = list(x = "bottom", inset = 0.05), 
+  xlab = "number of repetitions", 
+  ylab = "response time (ms)", 
+  ylim = c(900, 1400), 
+  las = 1
+)
+
+
+```
+
+Regarding the pattern obtained, we decided to conduct an exploratory analysis on the semantic satiation hypothesis by isolating trials that generated sensations in the 30-repetition condition. The idea was that if jamais vu is related to a cognitive impairment, then we could obtain the interaction predicted by @Neely1977 and found by @Smith1984. Indeed, as shown in Figure \@ref(fig:figure-2), in the presence of a jamais vu in a trial, reaction times for related and unrelated targets are confounded (i.e., the semantic priming effect is no longer present). Average reaction times and standard errors are shown in Table \@ref(tab:table-4) and Figure \@ref(fig:figure-3). As in the first analysis, results revealed an effect of the number of repetitions [*t*(58.58) = 4.77, *p* \< .001, *d* = .23], and no effect of the semantic relatedness [*t*(48.52) = 0.71, *p* \> .05, *d* = .02]. However, the interaction was significant [*t*(1752.24) = -2.33, *p* \< .01, *d* = .14], suggesting the presence of the semantic satiation effect by isolating trials that generated jamais vu. This result highlights the close relationship between the subjective experience and the cognitive disturbance. Based on this, we can assume that in the experiment of @Smith1984 or @Balota1997, trials that showed cognitive impairments also produced subjective feelings that were not reported by the participants or the authors.
+
+# Experiment 2
+
+In this experiment, our principal hypothesis was that older adults should report fewer jamais vu sensations than do younger.[^3] As in our previous studies, we used the protocol based on @Balota1997's one (i.e., a word alienation paradigm followed by a semantic decision task). However, as mentioned above, we have applied some changes from our previous study: Firstly, the means of inducing satiation was not repetition but simply visual fixation of a word. This choice is mainly supported by our wish to get closer to the real jamais vu feeling, by refraining from generating a feeling through several modalities, privileging the visual modality through which the jamais vu feeling seems to manifest itself most often. Secondly, we decided to add a intermediate condition of satiation time (i.e., 15 seconds) in order to isolate the effect of the presence of jamais vu from the simple effect of fatigue. This choice was made possible by the design of the second experiment. Indeed, contrary to our previous experiment, the semantic decision task was triggered when the participant indicated that he or she felt a peculiar sensation. Therefore, within the 30-seconds satiation condition, the trials that did not generate sensations all resulted in responses after 30 seconds of satiation while trials that generated sensations resulted in responses following variable time of satiation (i.e., a more or less probable fatigue effect). By adding the possibility of triggering the task when a sensation occurs, the trials that generated a sensation act as a filter by isolating the effect of jamais vu from the simple effect of fatigue. The addition of an intermediate condition was useful to refine this distinction by taking into account the variability in satiation time, as well as to verify whether a longer period of satiation results in higher response times. Thirdly, because results of the Experiment 1 did not reveal the effect of semantic relatedness on all observations --- supposed to highlight the effect of semantic satiation ---, we decided to exclude this factor from our analyses and then focus only on the semantically related trials. Fourthly, this last decision also allowed us to use a Go/No-go task in which only reaction times for related targets were recorded. Indeed, this kind of task is often preferred over a two alternative forced choice task because older adults show lower performances when the response modality is dual regardless of the desired effect [@Dykiert2012; @Kubo-Kawai2010]. Our second hypothesis was that the difference in reaction times between trials that generated jamais vu and trials that did not should increase as a function of the staring time, and we expected this difference to be greater for young than for older adults. Finally, we conducted some exploratory analyses about the relatedness between feelings experimentally induced and those of daily life, with the hope that both are similar. To this end, we performed correlations between the rate of experimental jamais vu and the frequency of daily life jamais vu, as well of déjà vu, in order to confirm that both are related.
+
+[^3]: As mentioned above and due to the situation, the following results will only come from young adults (i.e., control group).
+
+## Method
+
+#### Participants
+
+```{r participants_c informations, include = FALSE}
+
+df_info <- read_excel("liste_pp.xlsx") %>% 
+  rename(age = Âge)
+
+df_info_sens <- read_excel("liste_pp.xlsx") %>% 
+  filter(JV == "oui")
+
+## calculate mean and sd age
+M_age1 = mean(as.numeric(df_info$age))
+SD_age1 = sd(as.numeric(df_info$age))
+
+#`r M_age`
+#`r SD_age`
+#
+#`r apa(M_age, 2, T)`                               #The apa function takes three arguments:
+# `r apa(SD_age, 2, T)`                             #- a single number or a numeric vector
+#                                                   #- the number of decimal places you want
+#                                                   #- T include the zero (0.51) or F exclude the zero (.51)
+
+```
+
+Twenty participants took place in the experiment (`r sum(df_info$Genre=='F')` women and `r sum(df_info$Genre=='M')` men). [^4] They were all psychology students, French native speakers and had a normal or corrected to normal vision. The average age was `r apa(M_age1, 2, T)` years old (*SD* = `r apa(SD_age1, 2, T)`). Based on an alpha of .05, power of .95, and effect size of .74 --- based on the study of @Balota1997 --- and six conditions for a dependant samples t-test, we calculated to need 82 participants in G\*Power [@Faul2007]. The outlier detection technique was the same than in the Experiment 1 (i.e., the MAD).
+
+[^4]: In the original design, two age groups were supposed to be tested: one group of older adults and one group of young adults. We expected 41 participants in each group. In order to ensure a healthy sample of older adults, we wanted to exclude participants who scored \< 27 on the MMSE from the analyses.
+
+#### Material and design {#back-to-method-2}
+
+Stimuli used were 120 words semantically related in pairs. They were selected following an online questionnaire completed by 58 participants. In this questionnaire, 60 words were proposed, mostly from the lists of @Battig1969 and @Smith1984. For each word, participants were asked to write the word they felt was most semantically related, and the most chosen one from each proposal was used to create the semantically related pairs of words. Two lists of 60 word pairs were thus constructed (see [Appendix D](#appendix-d)), each list containing 30 words associated with a related exemplar (e.g. CORBEAU --- PIGEON) and 30 words associated with an unrelated exemplar (e.g. CARRÉ --- ABEILLE). A target word served as a related exemplar in one list and as an unrelated exemplar in the other list. Because there were three staring time conditions and two level of relatedness, six lists were constructed in order to ensure complete counterbalancing. Participants did not see any word for more than one trial and the order of trials was randomised anew for each participant. A list of six pairs of words was constructed in a similar way for training. The experiment was built on Opensesame software (version 3.2.8 Kafkaesque Koffka). The stimuli were presented in white capital letters on a black background. In this experiment, we had a 2 (age: young vs. old) \* 2 (jamais vu in a trial: presence vs. absence) \* 3 (staring time: 3, 15, 30s) mixed-factor design. Age was the only between-subjects factor. All data analysis details and models were the same as the first experiment.
+
+#### Measure
+
+The Acute Dissociation Inventory (ADI) is a 35-item self-report scale developed specifically for laboratory dissociation challenges by [@Leonard1999], in which participants rate the severity of dissociative thoughts and sensations on a 11-point Likert scale. The ADI was designed with the factor structure of the Dissociative Experiences Scale (DBS) of @Bernstein1986, a research tool to assess dissociative experiences. While DBS has only thee, the ADI is based on six factors measured by the first 26 items: amnestic experiences, gaps in awareness, depersonalization, derealization, absorption, and imaginative involvement. The last 9 items measure additional experiences such a relaxation, pleasure, sleepiness, and anxiety. For each item (e.g., "How much of the past 10 do you feel you can recall?"), participants choose from 11 options ranging from 0 (everything) to 100 (nothing). A total score can be obtaining by summing the first 26 items, while the subscale scores is obtained by averaging items included in each of the following subscales: amnestic experiences, items 1-5; gaps in awareness, items 6-7; depersonalization, items 8-13; derealization, items 14-16; absorption, items 17-23; imaginative involvement, items 24-26. The ADI has demonstrated excellent internal consistency in prior studies [$\alpha$ = .94-.96; @Leonard1999; @Leonard2000], but psychometric data regarding the factor structure is unavailable.
+
+#### Procedure
+
+Participants were tested individually in a 30-minute session and were randomly assigned to one of the lists --- odd ones had lists 1, 3 or 5 while even ones had lists 2, 4 or 6. Participants saw 20 words presented for 3 seconds, 20 for 15 seconds, and 20 for 30 seconds for each semantic relatedness condition, so that they saw only 10 words per condition. A trial was composed of the following sequence of events: (1) participants had to press any key to trigger the trial; (2) the prime word was displayed at the center of the screen either 3, 15, or 30 seconds; (3) a one-second fixation dot appeared in place of the word; (4) the target was then displayed for 3 seconds maximum; (5) participants had to press the "space" key if the target word was related to the prime word and do nothing if it was not related; (6) if the participant responded, a 1-second feedback on the reaction time replaced the target word; (7) participants had to press any key to trigger the next trial. During the presentation of the prime word, participants were asked to stare at the word until they felt a peculiar sensation. If they experienced one, they had to press the "space" key when the feeling arose, which triggered the semantic decision task. If they did not feel anything, they had to wait for the end of the presentation time. The purpose of this was to record reaction times when participants were in the middle of a sensation to avoid the possibility that the sensation would vanish before the task triggered and therefore confuse the fatigue effect with the jamais vu effect. After the task resolution, reaction time feedback were given in order to encourage faster responses [@Pachella1973] and thus avoid a flattening of response times due to the repetitive and hypnotic nature of the task. At the end of the experiment, participants were asked to fill a French translated version of the ADI in order to rate their dissociation feelings durning the experiment (see [<https://osf.io/ax4rs/>]). They also had to estimate their frequency of jamais vu, déjà vu, and ToTs in daily life, and those of them who had already experienced at least one jamais vu sensation before were asked to estimate the similarity between the experimentally induced sensation and those of daily life.
+
+## Results and discussion
+
+```{r data import_c, include = FALSE}
+
+path <- "JV_aging_excel/subject-"
+
+for(subj in 1:20){
+  fullpath <- paste(path, toString(subj), ".xlsx", sep = "")
+  df_tmp <- read_excel(fullpath) %>% 
+    select(subject_nr, 
+           jv_pp, 
+           jv,
+           correct, 
+           duration, 
+           prime, 
+           target, 
+           relation, 
+           response_time, 
+           response_keyboard_JV, 
+           response_time_keyboard_JV)
+  
+  if(subj == 1) {
+    df <- df_tmp
+  }
+  df <- dplyr::union(df, df_tmp)
+}
+
+```
+
+```{r correlations_c, include = FALSE}
+
+# correlation number JV & frequency JV
+cor.test(as.numeric(as.factor(df_info_sens$nombre_JV)), as.numeric(as.factor(df_info_sens$Frequ_JV)))
+#         cor       t = -0.53248, df = 57, p-value = 0.5965
+# -0.07035379 
+ggplot(df_info_sens, aes(x = nombre_JV, y = Frequ_JV)) + 
+  geom_point() +
+  stat_smooth(method = 'lm', col = 'steelblue') +
+  theme_apa()
+
+
+# correlation frequency JV & frequency DV
+cor.test(as.numeric(as.factor(df_info_sens$Frequ_JV)), as.numeric(as.factor(df_info_sens$Frequ_DV)))
+#        cor        t = 0.13179, df = 57, p-value = 0.8956
+# 0.01745277 
+ggplot(df_info_sens, aes(x = Frequ_JV, y = Frequ_DV)) + 
+  geom_point() +
+  stat_smooth(method = 'lm', col = 'steelblue') +
+  theme_apa()
+
+# correlation frequency JV & frequency ToT
+cor.test(as.numeric(as.factor(df_info_sens$Frequ_JV)), as.numeric(as.factor(df_info_sens$Frequ_TOT)))
+#       cor         t = 0.78598, df = 57, p-value = 0.4351
+# 0.1035463 
+ggplot(df_info_sens, aes(x = Frequ_JV, y = Frequ_TOT)) + 
+  geom_point() +
+  stat_smooth(method = 'lm', col = 'steelblue') +
+  theme_apa()
+
+```
+
+```{r sensations_c informations, include = FALSE}
+
+# count number of participants who reported at least one sensation
+df_info %>% 
+  count(JV)
+
+# count the total number of JV
+df_info %>% 
+  summarise(sum(as.numeric(nombre_JV)))
+
+# count the number of JV per condition
+df %>%
+  group_by(duration) %>%
+  count(response_keyboard_JV == "space")
+
+# count the number of JV given correct or incorrect responses
+df %>%
+  group_by(correct) %>%
+  count(response_keyboard_JV == "space")
+
+# count of the average of sensations per participants
+df_info %>% 
+  filter(JV == "oui") %>% 
+  summarise(
+    mean(as.numeric(nombre_JV)), 
+    sd(as.numeric(nombre_JV))
+  )
+
+
+M_JV_2 = mean(as.numeric(df_info$nombre_JV))
+SD_JV_2 = sd(as.numeric(df_info$nombre_JV))
+
+M_JV_2_sens = mean(as.numeric(df_info_sens$nombre_JV))
+SD_JV_2_sens = sd(as.numeric(df_info_sens$nombre_JV))
+
+```
+
+In our sample of 20 young participants, `r sum(df_info$JV=='oui')` of them (70%) felt at least one sensation that can be characterized as jamais vu. There were a total of `r sum(df$response_keyboard_JV=='space')` reports of jamais vu, i.e., 13.25% of all observations, 19.88% of all the satiation-type trials (15 and 30-seconds conditions), or 39.75% of the most satiated trials (only the 30-seconds condition). These sensations were 71.78% in the 30-seconds satiation condition and 28.22% in the 15-seconds satiation condition. The average rate of jamais-vu per participant was `r apa(M_JV_2, 2, T)` (*SD* = `r apa(SD_JV_2, 2, T)`) for all participants, and `r apa(M_JV_2_sens, 2, T)` (*SD* = `r apa(SD_JV_2_sens, 2, T)`) for participants who reported at least one sensation. We calculated the average time of sensation occurence (in seconds) within the 30-repetition condition (*M* = 26.4, *SD* = 7.1), as well as across the two satiation conditions (*M* = 20.4, *SD* = 8.1). There was no correlation between the number of jamais vu felt in the experiment and the frequency of jamais vu in daily life, as well as between the frequency of jamais vu in daily life and other feelings such as déjà vu or ToT. The ADI scores all showed a complete absence of dissociative thoughts and sensations (*M* = 0.37, *SD* = 0.12).
+
+```{r restructure_c, include = FALSE}
+
+df_ok <- df %>%
+    mutate(
+    logRT = log(response_time), 
+    C_trial = -0.5*(response_keyboard_JV == "None") + 0.5*(response_keyboard_JV == "space"), 
+    C1_duration = -2*(duration == 3000) + 1*(duration == 15000) + 1*(duration == 30000), 
+    C2_duration = 0*(duration == 3000) - 1*(duration == 15000) + 1*(duration == 30000)
+    ) %>%
+  transform(
+    duration = case_when(
+      duration == 3000 ~ "3", 
+      duration == 15000 ~ "15", 
+      duration == 30000 ~ "30"), 
+    response_keyboard_JV = ifelse(
+      response_keyboard_JV == "space", "presence", "absence")
+    ) %>%
+  rename(
+     response_time_JV = response_time_keyboard_JV, 
+     `jamais vu` = response_keyboard_JV
+    ) %>%
+  filter(
+    correct == 1, 
+    relation == "r"
+    ) %>%
+  group_by(subject_nr) %>%
+  mutate(
+    med = median(response_time), 
+    mad = mad(response_time, center = median(response_time), constant = 1.4826, 
+              na.rm = FALSE, low = FALSE, high = FALSE), 
+    mad3 = med + (3*mad), 
+    madinv = med - (3*mad)
+  ) %>% 
+  filter(
+    response_time < mad3, 
+    response_time > madinv
+  ) %>% 
+  mutate(duration = factor(duration, levels = c("3", "15", "30")))
+
+# create a df for averages
+df_average <- df_ok %>% 
+  group_by(subject_nr, duration, `jamais vu`) %>% 
+  summarise(response_time = mean(response_time))
+
+```
+
+To analyze response times (RTs), we removed incorrect responses (i.e., 8.17% of all trials, or 98 observations). Within those correct responses, and due to our Go/No-go paradigm, we analysed only reaction times for semantically related targets (i.e., those for which an answer has been given), which represent 51.63% of all correct responses (i.e., 569 observations). According to our outlier detection, the application of the MAD method allowed us to exclude all responses higher than 3 MAD above and below the median for each participant, which represent 4.57% of all good semantically related responses (i.e., 26 observations). Because of the distribution of residuals did not follow a normal distribution, we transformed the RTs using a logarithmic function.
+
+```{r models_c, include = FALSE}
+
+### approach by model comparison for the first part of the hypothesis, i.e., satiation versus non-satiation 
+# ...
+
+# final model
+lm_1 <- lmer(logRT ~ (C_trial*C1_duration) + (1 | subject_nr) + (1 | target), data = df_ok)
+summary(lm_1)
+
+hist(residuals(lm_1))
+qqnorm(residuals(lm_1))
+qqline(residuals(lm_1))
+shapiro.test(residuals(lm_1))
+
+
+# effect sizes (estimate / sqrt(sum all variances of random effects))
+  # trial : .33
+    56.416 / sqrt(422.8 + 3418.5 + 6248.5 + 18884.5)
+  # duration : .03
+    -5.434 / sqrt(422.8 + 3418.5 + 6248.5 + 18884.5)
+  # interaction : .10
+    -17.626 / sqrt(422.8 + 3418.5 + 6248.5 + 18884.5)
+
+
+
+### approach by model comparison for the second part of the hypothesis, i.e., time of satiation
+# ...
+
+# final model
+lm2_1 <- lmer(logRT ~ (C_trial*C2_duration) + (C2_duration | subject_nr) + (C_trial || target), data = df_ok)
+summary(lm2_1)
+
+hist(residuals(lm2_1))
+qqnorm(residuals(lm2_1))
+qqline(residuals(lm2_1))
+shapiro.test(residuals(lm2_1))
+
+# effect sizes (estimate / sqrt(sum all variances of random effects))
+  # trial : .29
+    51.678 / sqrt(5230.8 + 856.3 + 6276.9 + 424.3 + 18551.8)
+  # duration : .05
+    -8.092 / sqrt(5230.8 + 856.3 + 6276.9 + 424.3 + 18551.8)
+  # interaction : .01
+    2.569 / sqrt(5230.8 + 856.3 + 6276.9 + 424.3 + 18551.8)
+
+```
+
+```{r table-5, fig.cap="\\label{tab:table-5}table-5", out.width = "\\textwidth", fig.pos = "!h", echo = FALSE, results = 'asis'}
+
+df_3 <- df_average %>% 
+  filter(duration == "3") %>% 
+  spread(`jamais vu`, response_time) %>% 
+  mutate(presence = NA) %>% 
+  ungroup() %>% 
+  select("presence", "absence")
+  
+df_15 <- df_average %>% 
+  filter(duration == "15") %>% 
+  spread(`jamais vu`, response_time) %>% 
+  ungroup() %>% 
+  select("presence", "absence")
+  
+df_30 <- df_average %>% 
+  filter(duration == "30") %>% 
+  spread(`jamais vu`, response_time) %>% 
+  ungroup() %>% 
+  select("presence", "absence")
+
+
+M3 <- t(apply(df_3, 2, function(x) {
+    round(c(Mean = mean(x, na.rm = TRUE), SD = sd(x, na.rm = TRUE)), 2)
+  }))
+
+M15 <- t(apply(df_15, 2, function(x) {
+    round(c(Mean = mean(x, na.rm = TRUE), SD = sd(x, na.rm = TRUE)), 2)
+  }))
+
+M30 <- t(apply(df_30, 2, function(x) {
+    round(c(Mean = mean(x, na.rm = TRUE), SD = sd(x, na.rm = TRUE)), 2)
+  }))
+
+
+apa_table(cbind(M3, M15, M30),
+          placement = "ht", 
+          align = c("l", rep("l", 6)),          
+          caption = "Reaction times as a function of the staring time and the presence of jamais vu",
+          note = "All values are in milliseconds.",
+          added_stub_head = 'jamais vu', 
+          col_spanners = list(`3` = c(2, 3), `15` = c(4, 5), `30` = c(6, 7)))
+
+```
+
+```{r figure-4, fig.cap="\\label{fig:figure-4}Reaction times and standard errors as a function of staring time and jamais vu presence", echo = FALSE, results = 'asis'}
+
+par(
+  list(
+    family = "serif", 
+    adj = 0.5, 
+    cex.main = 1, 
+    cex.axis = 1, 
+    cex.lab = 1
+  ), 
+  no.readonly = FALSE
+)
+
+apa_lineplot(
+  df_ok, 
+  id = "subject_nr", 
+  dv = "response_time", 
+  factors = c("duration", 'jamais vu'), 
+  dispersion = se, 
+  jit = 0.1, 
+  args_legend = list(x = "bottom", inset = 0.05), 
+  xlab = "staring time", 
+  ylab = "response time (ms)", 
+  ylim = c(400, 700), 
+  las = 1
+)
+
+```
+
+```{r bayesian3, include = FALSE}
+
+str(df_ok)
+df_ok$subject_nr <- as.factor(df_ok$subject_nr)
+df_ok$target <- as.factor(df_ok$target)
+df_ok$C_trial <- as.factor(df_ok$C_trial)
+df_ok$C1_duration <- as.factor(df_ok$C1_duration)
+df_ok$C2_duration <- as.factor(df_ok$C2_duration)
+
+# for the presence of a satiation
+BFC1_duration <- anovaBF(logRT ~ C1_duration : C_trial + subject_nr, whichRandom = "subject_nr", data = df_ok, 
+                         iterations = 10000, whichModels = "top")
+BFC1_duration
+# because the output of the model is H0, we have to search the inverse of the parameter's result
+1/BFC1_duration[3] # jamais vu presence : 0.4862733 ±3.79% 
+1/BFC1_duration[2] # satiation presence : 0.3891492 ±3.9%
+1/BFC1_duration[1] # interaction : 0.5153244 ±3.94%
+
+
+# for the time of satiation
+BFC2_duration <- anovaBF(logRT ~ C2_duration : C_trial + subject_nr, whichRandom = "subject_nr", data = df_ok, 
+                         iterations = 10000, whichModels = "top")
+BFC2_duration
+# because the output of the model is H0, we have to search the inverse of the parameter's result
+1/BFC2_duration[3] # jamais vu presence : 0.6398568 ±9.6% 
+1/BFC2_duration[2] # satiation presence : 0.1159989 ±9.71%
+1/BFC2_duration[1] # interaction : 0.1704475 ±9.64%
+
+```
+
+Our hypothesis was that the difference in reaction times between trials that generated jamais vu and trials that did not should increase as a function of the staring time. We also expected this difference greater for young than for older adults but, due to the situation, only the first part of the hypothesis will be analysed here. As the staring time condition had three modalities, we have decomposed the hypothesis in two questions: Especially, does the presence of a satiation-condition increase reaction times rather than a non-satiated condition, and do reaction times increase wtih the staring time? On the one hand, we have used a mixed model analysis with the interaction between variables "staring time" and "jamais vu presence" as fixed effects. In order to test only the difference between a non-satiation condition and a satiation-type one, we have spread the staring time condition into two contrast codes (i.e., 3-seconds vs. 15- and 30-seconds). The application of the Bates method [@Bates2015] allowed us to estimate only an intercept per participants and stimuli. Reaction times and standard errors are presented in Table \@ref(tab:table-5) and Figure \@ref(fig:figure-4). The analysis revealed an effect of the type of trial [*t*(516.27) = 2.13, *p* \< .05, *d* = .33], suggesting that response times tend to increase when a jamais vu occurs. There was no effect of the presence of a satiation [*t*(347.96) = -0.38, *p* \> .05, *d* = .03], as well as interaction effect [*t*(472.88) = -0.61, *p* \> .05, *d* = .10]. On the other hand, we have used the same mixed model but this time with spreading the staring time condition into two others contrast condes (i.e., 15-seconds vs. 30-seconds). The application of the Bates method allowed us to estimate an intercept and as slope for the variable "staring time" per participants, as well as an intercept and a slope for the variable "presence of jamais vu" per stimuli. The analysis revealed the same effect of the type of trial [*t*(161.09) = 2.18, *p* \< .05, *d* = .29], and still no effect of the staring time [*t*(43.43) = -0.68, *p* \> .05, *d* = .05], as well as the interaction [*t*(352.13) = 0.11, *p* \> .05, *d* = .01]. The analysis of the proportion of variance explained by random effects revealed that the higher the response times, the higher the effect of the staring time (explained by the positive correlation of *r* = .30). The bayesian analysis revealed that the presence of a satiation, the duration of satiation, as well of the interaction have a BF \< 1, which mean no evidence of the presence of such effects (see Table \@ref(tab:table-6)).
+
+```{r table-6, fig.cap="\\label{tab:table-6}table-6", out.width = "\\textwidth", fig.pos = "!h", echo = FALSE, warning = FALSE, results = 'asis'}
+
+tableBF1 <- matrix(c(0.48, 0.64, 0.39, 0.52, 3.79, 9.6, 3.9, 3.94), ncol = 4, byrow = TRUE)
+
+colnames(tableBF1) <- c("satiation presence", "satiation duration", "jamais vu presence", "interaction")
+rownames(tableBF1) <- c("BF","±")
+
+
+tableBF1 <- printnum(tableBF1)
+
+
+apa_table(tableBF1, 
+          caption = "Bayesian results, interpreted with a BF", 
+          escape = TRUE,
+          placement = "ht",
+          align = "c")
+
+```
+
+# General discussion {#back-to-discuss}
+
+In this study, we have sought to extend our comprehension of the jamais vu feeling in two experiments. In the first one, we have compared the relatedness between subjective feelings of jamais vu and the effect of semantic satiation with the idea that both are related. To this purpose, we have used a world alienation procedure in which participants had to repeat a word three or thirty-three times before realizing a semantic relatedness decision task, added to subjective reports of strange feelings. Two main points will be discussed: Firstly, the failure to replicate the well-documented effect of semantic satiation, and secondly, the relatedness between the feeling and the cognitive impairment. In the second experiment, we aimed to test the prevalence of jamais vu in older adults using a similar procedure adapted to aging and abstaining from the effect of semantic satiation. Due to the special health circumstances, only results on a small number of young adults will be discussed, and the obvious lack of power will prevent us from drawing any conclusions on these results.
+
+Results about the first experiment cast doubt on the semantic satiation hypothesis. The only reliable effect was that response times were slower following a satiation period, suggesting a general fatigue effect. Other effects were contrary to our expectations: Firstly, related targets appear to be recognized before unrelated targets --- revealing a semantic priming ---, but the effect was not significant. In order to explore this result further, we analysed the simple effect of semantic relatedness only in the 3-repetition condition with the idea that the semantic priming effect may not be reliable due to the presence of the satiation condition. Results on the simple effect showed that the semantic priming effect was not significant either, as well as with the same detection of outliers than @Balota1997. While semantic priming is described as a robust effect [@Meyer2014], something in our experiment must have disturbed cognitive mechanisms more generally so that even the control condition revealed alterations. The simplest explanation would be that the state of fatigue in which participants were may have altered the semantic priming phenomenon. Secondly, according to the semantic satiation hypothesis, we expected that only responses following related targets would be affected by the repetitions, which was not the case. These results contradict those of @Smith1984 as well as the original prediction of @Neely1977. Indeed, her idea was that the semantic priming paradigm would be a good demonstration of semantic satiation. She predicted that the priming effect observed with related primes will decrease if the prime word is repeated and hence is semantically satiated: satiation would reduce the activation of the prime, and accordingly reduce its spreading [@Collins1975] to semantically related nodes. However, her results at the lexical decision task did not support her hypothesis, but @Smith1984 succeeded using a semantic decision task. This effect was subsequently replicated, notably by @Balota1997 who suggested that the effect of semantic satiation would be revealed by a decrease in the "relatedness effect" (e.g., the difference between related and unrelated trials) as a function of the number of repetitions. However, by taking a closer look at their results, we noticed that response times to related targets do not become slower, but the one to unrelated words become faster. The decrease in the "relatedness effect" is still preserved, but not in the way that @Neely1977 and @Smith1984 intended, highlighting the inherent variability in the semantic satiation effect across the literature. In general, the articles cited in this section show little transparency regarding the detection of outliers or the transformations applied to their variables, making exact replication delicate.
+
+Despite an adapted sample size and power --- contrary to previous studies --- our current results do not support such a hypothesis. After an initial failure to replicate the effect of semantic satiation in our first study last year (see [Appendix A](#appendix-a)), we considered the hypothesis that the use of members as prime word (e.g., POMME) and members as target (e.g., POIRE) could be responsible for this result, leading us to repeat the experiment this year with category names as prime and category member as target (e.g., FRUIT / POMME). Since the results were identical in every way, the type of prime does not seem to play a role in our failure to replicate the effect of semantic satiation. Given that we obtained this pattern in our two experiments, and the variability of patterns across the literature, our statement is that the semantic satiation effect does not exist in its purely semantic form. Two aspects need to be highlighted here: Firstly, the access to semantically unrelated nodes is impaired by the satiation in the same way as the related ones. This clearly shows that the satiation generated by the repetitions is not limited to semantically related structures. In that way, the effect of semantic satiation as such would have been confused with a global slowdown in which all cognitive processes are affected, regardless of the semantic relatedness. Secondly, it is important to note that, even if the semantic priming effect was not reliable, related targets are always recognized before the unrelated ones, and equally regardless of the number of repetitions. Despite the slowdown state, cognitive processes seem to be spared allowing a faster access to related structures within the semantic network. These results may call into question the integrity of semantic satiation hypothesis [@Smith1984; @Balota1997] while remaining consistent with spreading activation models [@Collins1975] in the sense that the activation of a lexical node spread its activation in the semantic network and facilitates access to related concepts even if the prime word is satiated. In such a situation, a system could play a role of monitoring by withdrawing ressources from a repetitive information that is deemed irrelevant. This habituation-type mechanism [@MacKay1990; @Pilotti2004] could prevent potential system overload by generating a global latency state waiting for new relevant information to be processed. Thus, repetitions would effectively reduce the activation of the prime word, but a system would ensure that this activation still propagates through the semantic network. As the priming functions are obviously not affected by repetition, access to related concepts is therefore easier. Another explanation would tend to say that the semantic network has indeed been disrupted, but that at the time of realizing the task, a new activation propagation occurs and restores the state of the system. Indeed, after the last repetition, the participant can --- at the cost of cognitive effort --- reallocate resources to complete the task and reactivate the concept of the previously satiated word. However, in this kind of procedure, there still seems to be a satiation effect generating only a slowdown in cognitive functions.
+
+The aim of the experiment was also to generate jamais vu sensations in laboratory conditions. In our study, 81.9% of participants reported at least one sensation that could be considered jamais vu, and 28% of trials generated a sensation, which is consistent with the @Moulin2020 experiment where 70.9% of their participants reported at least one jamais vu and 30% of their trials generated one. These results support the idea that jamais vu could be tested deeper in laboratory using this kind of procedure. However, this point highlight a main limit of this study, namely, the ease with which we generated jamais vu compared to the rarity of such a phenomenon in the daily life [for an example in ToT, see @Heine1999]. As @Jersakova2015 suggested, demand characteristics may alter subjective reports of déjà vu, which could be the same with jamais vu. Asking directly for jamais vu reports may be too sensitive to demand bias and may not represent the true rate of such a sensation in daily life. Moreover, according to @Moulin2020, the experimental induced sensation could be a pale copy of the real one due to our paradigm. The real feeling of jamais vu does not require repetitions to occur, it just happens naturally strong enough to give as a strange feeling. Due to the nebulous character of such a sensation, participants who were unfamiliar with the sensation may have confused it with another such as the verbal transformation effect. The world alienation procedure could limit this rich feeling to the loss of meaning of the word, explaining our high rate of reports. That's the reason for which we have conducted some correlations between the rate of jamais vu reports in the experiment and the frequency of reports in daily life. On a five-degree scale, no correlation was found, suggesting that the sensations induced in our experiment may not be related to the more intense and rare sensation that occur in daily life, which is a major point to be taken into account in our interpretation. However, another interpretation would be that an individual who is generally sensitive to kind of sensation is simply not more sensitive to an experimental induction using satiation, which is not the case in daily life. Finally, we can consider that the rates reported by participants are not an accurate measure of their actual rate of such feelings. First of all, only a few people in our sample were fully aware of what is a sensation of jamais vu, but these participants were far from representing a majority. For the others, this sensation was a mystery, rarely experienced in life, difficult to understand and even less explainable. The nebulous nature of such a sensation added to its rarity makes any objective assessment difficult. Secondly, even among those who were familiar with the jamais vu experience, the estimate of its frequency remains subject to a high degree of variability.
+
+However, even if the similarity between experimentally induced sensation and the real jamais vu remains to debate, our experience has had the merit of shedding light on a point still unreferenced in the literature, namely the relatedness between the subjective sensation of loss of meaning of a word and cognitive disturbances labelled under the term semantic satiation. Although the semantic satiation effect has not been replicated in our experience, the results on trials in satiation condition (i.e., 30-repetition) suggest that the presence of a peculiar sensation is somehow correlated with a cognitive impairment. Furthermore, by isolating the trials that generated jamais vu experiences and comparing them to the control condition (i.e., 3 repetition), the initial pattern predicted by the semantic satiation hypothesis was revealed, i.e. that the semantic priming effect should disappear after a period of satiation. The fact that this pattern is only revealed by considering trials that generated a sensation suggests that the semantic satiation effect, if it exists, is fully dependent on its sensory expression. This result seems to be important in that it brings together the two sides of the semantic satiation literature, namely the early studies revealing a sensation of loss of meaning on the one hand [@Severance1907; @Bassett1919], and the more recent studies reporting cognitive disturbances on the other [@Balota1997; @Smith1984].
+
+If there is such relatedness between sensation and cognitive disturbance, we can hypothesize a causality between the two: does jamais vu create the cognitive disturbance or does the cognitive disturbance generate a jamais vu? On the one hand, the sensation of loss of meaning could lead to a cascade of disturbances slowing down the speed of information processing. This could be supported by the participants' justifications that the sensation could be dissipated with sufficient concentration. In this way, the system could compensate for the occurrence of a strange sensation at the cost of cognitive effort. On the other hand, as suggested by @Kusumi2006, jamais vu could be a metacognitive signal of interest alerting to the presence of an underlying disturbance. Just as the car's light alert us to the presence of a problem, the jamais vu sensation could be the manifestation of our ability to be aware of the state of our system, and could therefore be considered as an epistemic feeling --- as well as déjà vu [@Moulin2013] and ToT [@Bacon2007]. Such a sensation would therefore arise in response to a disruption in information processing. In the case of the déjà vu and ToT, the disruption comes from two opposing similar assessments, one coming from what an individual feels at a given time, and the other coming from what one knows. Jamais vu could be similar in that one will not recognize something one is supposed to know. However, this particular feeling seems to be more apparent in situations of overload, as @Burnham1903's case shows. Indeed, his patient --- representing the most severe case of jamais vu ever reported --- was described as being overworked. In our experiments, we also used overload to induce the sensation of loss of meaning, suggesting that the jamais vu experience could be the consequence of a conflict in mental evaluations, the presence of an overload, or maybe both.
+
+The presence of such a type of cognitive impairment would seem to be a prerequisite for the occurrence of a peculiar experience. In such situations, the brain areas responsible for cognitive control would be recruited through the conflict monitoring function [@Botvinick2001; @VanVeen2001]. @Urquhart2018 suggested that the prefrontal cortex --- including ACC --- and both medial and lateral parietal cortex could be neural substrates underpinning the déjà vu experience. These same regions also appear to be recruited during a ToT [@Maril2001]. Considering that the ACC has been implicated in conflict monitoring and effortful tasks, it is not surprising that these areas are active during TOT states, which is considered a frustrating experience. Here, it is proposed that such brain regions may also be activated during a jamais vu experience. The same mechanisms would be responsible of the arising of a strange feeling, even a déjà vu, a jamais vu, or a ToT depending to the situation. Indeed, mechanisms can be shared, but the final sensation will at least depend on the type of conflict (i.e., familiarity, unfamiliarity, failure to retrieve).
+
+Regarding the second experiment, the analyses on the rate of sensations reported suggested that the visual fixation paradigm seems to be conductive to the occurence of jamais vu experiences, although the rate of reports appears to be lower than in our early experiences. Indeed, in the first two experiments, participants benefited from two modalities of satiation (visual and auditory), which may explain the higher rate of jamais vu experiences. We can notice that reports increase as a function of the visual fixation time. This result was made possible by our new design in which we compared not only a satiation condition versus a non-satiation condition, but also two satiation conditions of different duration. We also calculated the average time it takes for a peculiar sensation to appear, which was similar to those found in the literature [@Severance1907; @Bassett1919], i.e., about 20 seconds of satiation.
+
+Our main hypothesis was that trials that generated jamais vu sensations should result in greater reaction times than trials that did not, and that this difference should increase as the fixation time increases. The results can be summarized as follows: On the one hand, the presence of a jamais vu sensation in a trial gives rise to significantly longer reaction times. On the other hand, contrary to our expectations, the presence of a period of satiation does not increase response times, and the satiation time does not seem to have any effect either. Here, it is important to specify that the lack of power of this experiment (and thus the inconsistency of the effects), does not allow any viable interpretation of these results. However, in view of the obtained pattern (see Figure \@ref(fig:figure-4)), some effects seem to emerge: The reaction times seem to increase with repetitions, and by increasing the satiation time, only trials that generated a sensation resulted in higher reaction times, while trials that did not generate sensation resulted in reaction times similar to those of the control condition. This would suggest that the presence of a sensation is correlated with cognitive impairments and that these impairments increase in intensity with a longer period of satiation. These results are similar to those of Experiment 1 because of the relatedness between sensation and the general slowing down of cognitive processes. Thus, by repeating the experiment with an adapted statistical power, we would expect an interaction effect between the presence of a jamais vu and the duration of satiation.
+
+The aim of the study was initially to test these effects in an elderly population. As this part of the experiment could not be carried out, we will only speculate about the potential effects and their implications. We expected that the interaction effect discussed above would be more pronounced for the young than for the older adults. Indeed, according to our hypotheses, older adults should report less or no sensation at all. Thus, the relationship between sensation and general slowing down could not be found. Assuming that the two are related (perhaps with a causal relationship), older adults should be less impacted by satiation than younger. This result would be in agreement with the literature on habituation effects [e.g., @Balota1997; @Langley1998], as older people would benefit less from mechanisms to remove cognitive resources from information deemed irrelevant [@McDowd1992]. If such results were to emerge, then the relatedness between jamais vu and any underlying cognitive impairment would be all the more documented. The jamais vu could arose scientific interest comparable to other sensations such as déjà vu or ToT. Drawing on this literature, one could study the neural bases that may underlie the sensation of déjà vu and hypothesize that these regions may also be involved in other epistemic feelings.
+
+The lower sensitivity of older adults to the jamais vu phenomenon --- and by extension to all metacognitive experiences --- could therefore be explained by less efficient cognitive mechanisms. However, we could also explain this by a lower performance of metacognitive mechanisms. This hypothesis would be supported by the fact that older adults report fewer cognitive failures than younger [@DeWinter2015; @Harty2017; @Rabbitt1990], as well as fewer feelings of déjà vu [@Adachi2007; @Brown2004; @Moulin2014]. While judgments seem to be preserved [@Souchay2007], feelings are reportedly altered by aging. This may be due to the decline in functions supported by ACC [@Mann2011; @Otsuka2006; @Pardo2007], decreasing the ability of older adults to detect and monitor cognitive conflict. Thus, studying the prevalence of jamais vu sensations in a, older population could provide insights into the functioning of metacognitive abilities, their roles, and how such perculiar sensations are generated. It is important to note here that the two explanations according to which older adults are less sensitive to habituation mechanisms on the one hand, and to metacognitive experiences on the other hand are by no means exclusive and can dynamically inifluence reach other. Assuming that these two aspects are related, we would be entitled to imagine that aging has a joint influence on all levels, namely, cognitive and metacognitive.
+
+# Conclusion
+
+Our study provided several insights into the sensation of jamais vu and its relationship to the phenomenon of semantic satiation. Indeed, the jamais vu seems to be experimentally testable using a word alientation procedure, and this sensation seems to be dependent on cognitive disturbances. Results also showed that the semantic satiation effect --- although it was impossible to replicate it as it was --- can be revealed by focusing on trials where a jamais vu feeling was reported, accentuating the dependant relationship between these two phenomena. We hypothesized that jamais vu could play a metacognitive role of interest by alerting us to the presence of a cognitive conflict. Following this first step, future studies should, as originally planned, study the prevalence of jamais vu in aging, and take into account the growing number of déjà vu studies to explore the neural bases responsible for the generation of such epistemic feelings.
+
+\newpage
+
+# References
+
+```{r create_r-references}
+r_refs(file = "References.bib")
+```
+
+```{=tex}
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+```
+::: {#refs custom-style="Bibliography"}
+:::
+
+\endgroup
+
+\onecolumn
+
+
+```{r echo = FALSE, results = 'asis', cache = FALSE}
+papaja::render_appendix('appendix 1.Rmd')
+```
+
+
+```{r echo = FALSE, results = 'asis', cache = FALSE}
+papaja::render_appendix('appendix 2.Rmd')
+```
+
+
+```{r echo = FALSE, results = 'asis', cache = FALSE}
+papaja::render_appendix('appendix C.Rmd')
+```
+
+
+```{r echo = FALSE, results = 'asis', cache = FALSE}
+papaja::render_appendix('appendix D.Rmd')
+```
+
+
